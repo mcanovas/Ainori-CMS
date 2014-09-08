@@ -49,13 +49,13 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '*Mcc487621';
-$db['default']['database'] = 'cmstest1';
+$db['default']['username'] = 'cms';
+$db['default']['password'] = 'loozm0';
+$db['default']['database'] = 'cmdtest1';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
+$db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
 $db['default']['char_set'] = 'utf8';
@@ -64,6 +64,62 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+
+if($db['default']['db_debug']) {
+// include 'database_DEBUG.php';
+
+// copy the following code to ./application/config/database_DEBUG.php
+
+
+/* file: ./application/config/database_DEBUG.php */
+
+    // cosmetic    stuff
+    define('xxx',    '<p>Line:    %s : %s    </p>');
+    
+    // show    parameters        
+    echo '<pre>';
+        print_r($db['default']);
+    echo '</pre>';
+    
+    // try to    connect    to database    using    username and password
+    $dbh = @ mysql_connect
+                (
+                    $db['default']['hostname'],
+                    $db['default']['username'],
+                    $db['default']['password']
+                 );
+    if(mysql_error())    
+        echo sprintf(xxx,    __LINE__,    mysql_error());                
+    
+    
+    // try to    select database
+    $connected = @ mysql_select_db ($db['default']['database']);
+    if (mysql_error()) 
+        echo sprintf(xxx,    __LINE__,    mysql_error());                
+    
+    
+    // display success/failure
+    $msg    =    '';    // default
+    if($connected)
+    {
+        $msg = 'Connected    OK';
+    }//
+    echo sprintf(xxx,    __LINE__,    $msg);             
+
+    $query = mysql_query('SELECT * FROM stock_categories');
+    
+    // Check result
+    // This shows the actual query sent to MySQL, and the error. Useful for debugging.
+    if (!$query)
+    {
+      $message  = 'Invalid query: ' . mysql_error() . "\n";
+      $message .= 'Whole query: ' . $query;
+      die($message);
+    }     
+    echo 'Success';
+    // return $query->result()     
+    die();
+}
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
