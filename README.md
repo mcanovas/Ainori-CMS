@@ -1,0 +1,1 @@
+This CMS will be able to be deployed both python and php server. In the first iteration, it will be done with almost the whole implementation in PHP but AngularJS is going to replace the most amount of code.
