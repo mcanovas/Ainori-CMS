@@ -267,7 +267,7 @@ class CI_Router {
 		{
 			return $segments;
 		}
-
+		
 		// Does the requested controller exist in the root folder?
 		if (file_exists(APPPATH.'controllers/'.$segments[0].'.php'))
 		{
@@ -301,6 +301,7 @@ class CI_Router {
 						show_404($this->fetch_directory().$segments[0]);
 					}
 				}
+
 			}
 			else
 			{
